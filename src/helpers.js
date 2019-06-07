@@ -21,6 +21,5 @@ export const typeText = async (page, selector, text) => {
 };
 
 export const loadUrl = async (page, url) => {
-  // await page.goto(url, {waitUntil: networkidle0});
-  await page.goto(url);
+  await page.goto(url, {waitUntil: 'networkidle0'});
 };
