@@ -1,4 +1,4 @@
-export const e2eSelectorConverter = (selector) => {
+export const convertToE2eSelector = (selector) => {
   return `[data-e2e=${selector}]`;
 };
 
@@ -65,5 +65,13 @@ export const pressKey = async (page, key) => {
     await page.keyboard.press(key);
   } catch (e) {
     throw new Error(`Could not press ${key} on the keyboard`);
+  }
+};
+
+export const shouldExist = async (page, selector) => {
+  try {
+    await page.waitForSelector(selector, { visible: true });
+  } catch (e) {
+      throw new Error(`${selector} not exist.`);
   }
 };

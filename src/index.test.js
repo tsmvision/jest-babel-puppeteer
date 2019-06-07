@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import {baseUrl, isHeadless, slowMo, isDevtools} from './config';
-import {click, typeText, gotoUrl, isTextInSelector, pressKey } from './helpers';
+import {click, typeText, gotoUrl, isTextInSelector, pressKey, shouldExist } from './helpers';
 
 describe('My first puppeteer test', () => {
   let browser;
@@ -26,7 +26,7 @@ describe('My first puppeteer test', () => {
 
   it('my first test step', async () => {
     await gotoUrl(page, baseUrl);
-    await page.waitForSelector('#nav-search');
+    await shouldExist(page, '#nav-search');
 
     const url = await page.url();
     const title = await page.title();
@@ -37,7 +37,7 @@ describe('My first puppeteer test', () => {
 
   it('browser reload', async () => {
     await page.reload();
-    await page.waitForSelector('#page-content');
+    await shouldExist(page, '#page-content');
 
     const url = await page.url();
     const title = await page.title();
@@ -50,13 +50,13 @@ describe('My first puppeteer test', () => {
   it('click method', async () => {
     await gotoUrl(page, baseUrl);
     await click(page, '#write-link');
-    await page.waitForSelector('.registration-rainbow');
+    await shouldExist(page, '.registration-rainbow');
   });
 
   it('submit searchbox', async () => {
     await gotoUrl(page, baseUrl);
     await typeText(page, '#nav-search', 'Javascript');
     await pressKey(page, 'Enter');
-    await page.waitForSelector('#articles-list');
+    await shouldExist(page, '#articles-list');
   });
 });
