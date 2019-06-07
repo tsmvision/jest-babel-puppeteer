@@ -1,4 +1,6 @@
 import puppeteer from 'puppeteer';
+import { baseUrl, isHeadless, slowMo, isDevtools } from './config';
+import { click } from './helpers';
 
 describe('My first puppeteer test', () => {
   let browser;
@@ -6,9 +8,9 @@ describe('My first puppeteer test', () => {
 
   beforeAll(async () => {
     browser = await puppeteer.launch({
-      headless: false,
-      slowMo: 0,
-      devtools: false,
+      headless: isHeadless,
+      slowMo: slowMo,
+      devtools: isDevtools,
       timeout: 10000,
     });
     page = await browser.newPage();
@@ -46,8 +48,7 @@ describe('My first puppeteer test', () => {
 
   it('click method', async () => {
     await page.goto('http://dev.to/');
-    await page.waitForSelector('#write-link');
-    await page.click('#write-link');
+    await click(page, '#write-link');
     await page.waitForSelector('.registration-rainbow');
   });
 
