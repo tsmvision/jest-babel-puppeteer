@@ -8,4 +8,4 @@
 ES6 module looks working out of the box.
 
 ## COPYRIGHTS
-[MIT](README.md)
+[MIT](LICENSE.md)
