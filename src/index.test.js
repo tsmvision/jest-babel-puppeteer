@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
-import { baseUrl, isHeadless, slowMo, isDevtools } from './config';
-import { click } from './helpers';
+import {baseUrl, isHeadless, slowMo, isDevtools} from './config';
+import {click, typeText, loadUrl} from './helpers';
 
 describe('My first puppeteer test', () => {
   let browser;
@@ -25,7 +25,7 @@ describe('My first puppeteer test', () => {
   });
 
   it('my first test step', async () => {
-    await page.goto('http://dev.to/');
+    await loadUrl(page, baseUrl);
     await page.waitForSelector('#nav-search');
 
     const url = await page.url();
@@ -47,15 +47,14 @@ describe('My first puppeteer test', () => {
   });
 
   it('click method', async () => {
-    await page.goto('http://dev.to/');
+    await loadUrl(page, baseUrl);
     await click(page, '#write-link');
     await page.waitForSelector('.registration-rainbow');
   });
 
   it('submit searchbox', async () => {
-    await page.goto('https://dev.to/');
-    await page.waitForSelector('#nav-search');
-    await page.type('#nav-search', "Javascript");
+    await loadUrl(page, baseUrl);
+    await typeText(page, '#nav-search', 'Javascript');
     await page.keyboard.press('Enter');
     await page.waitForSelector('#articles-list');
   });

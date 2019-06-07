@@ -10,3 +10,17 @@ export const click = async (page, selector) => {
     throw new Error(`Could not click on ${selector}.`);
   }
 };
+
+export const typeText = async (page, selector, text) => {
+  try {
+    await page.waitForSelector(selector);
+    await page.type(selector, text);
+  } catch (e) {
+    throw new Error(`Could not type ${text} into ${selector}`);
+  }
+};
+
+export const loadUrl = async (page, url) => {
+  // await page.goto(url, {waitUntil: networkidle0});
+  await page.goto(url);
+};
