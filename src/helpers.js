@@ -70,8 +70,16 @@ export const pressKey = async (page, key) => {
 
 export const shouldExist = async (page, selector) => {
   try {
-    await page.waitForSelector(selector, { visible: true });
+    await page.waitForSelector(selector, {visible: true});
   } catch (e) {
-      throw new Error(`${selector} not exist.`);
+    throw new Error(`${selector} shouldn't exist.`);
+  }
+};
+
+export const shouldNotExist = async (page, selector) => {
+  try {
+    await page.waitFor(() => !document.querySelector(selector));
+  } catch (e) {
+    throw new Error(`${selector} should exist.`)
   }
 };
