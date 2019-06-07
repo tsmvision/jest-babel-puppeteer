@@ -20,8 +20,12 @@ export const typeText = async (page, selector, text) => {
   }
 };
 
-export const loadUrl = async (page, url) => {
-  await page.goto(url, {waitUntil: 'networkidle0'});
+export const gotoUrl = async (page, url) => {
+  try {
+    await page.goto(url, {waitUntil: 'networkidle0'});
+  } catch (e) {
+    throw new Error(`Could not go to ${url}.`);
+  }
 };
 
 export const getText = async (page, selector) => {
@@ -40,5 +44,26 @@ export const getCount = async (page, selector) => {
     return page.$$eval(selector, e => e.length);
   } catch (e) {
     throw new Error(`Cannot get count of selector: ${selector}`);
+  }
+};
+
+export const isTextInSelector = async (page, selector, text) => {
+  try {
+    await page.waitForSelector(selector);
+    await page.waitForFunction((selector, text) => document.querySelector(selector).innerText.includes(text), {},
+      selector,
+      text
+    );
+  } catch
+    (e) {
+    throw new Error(`Text: ${text} found for ${selector}`);
+  }
+};
+
+export const pressKey = async (page, key) => {
+  try {
+    await page.keyboard.press(key);
+  } catch (e) {
+    throw new Error(`Could not press ${key} on the keyboard`);
   }
 };
