@@ -18,5 +18,8 @@
     "jest-puppeteer": "^4.2.0",
     "prettier": "1.18.0",
     "puppeteer": "^1.18.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.14"
   }
 }
